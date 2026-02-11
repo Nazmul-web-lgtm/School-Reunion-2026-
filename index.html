@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>রেজিস্ট্রেশন ফরম</title>
+
+<style>
+body{
+    font-family: SolaimanLipi, Arial;
+    background:#f2f2f2;
+    text-align:center;
+}
+
+.container{
+    width:600px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    box-shadow:0 0 10px gray;
+}
+
+h1{
+    color:#b30000;
+}
+
+input{
+    width:90%;
+    padding:8px;
+    margin:5px;
+}
+
+button{
+    padding:10px 20px;
+    background:green;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>সমশেরা দ্বি-মুখী উচ্চ বিদ্যালয়</h1>
+<h3>রেজিস্ট্রেশন ফরম</h3>
+
+<form id="form">
+
+<input type="text" placeholder="শিক্ষার্থীর নাম" name="name" required>
+<input type="text" placeholder="ব্যাচ নং" name="batch" required>
+<input type="text" placeholder="মোবাইল নং" name="mobile" required>
+<input type="text" placeholder="গ্রাম" name="village">
+<input type="text" placeholder="পোস্ট" name="post">
+<input type="text" placeholder="মোট চাঁদার পরিমাণ" name="amount">
+<input type="text" placeholder="বিকাশ/নগদ/..Trx ID" name="tryid">
+<input type="text" placeholder="চাঁদা গ্রহণকারীর নাম" name="collector">
+<input type="text" placeholder="চাঁদা গ্রহণকারীর ফোন নং" name="collectorphone">
+
+<br><br>
+<button type="submit">সাবমিট</button>
+
+</form>
+
+<p id="msg"></p>
+
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbxY_MK4LvXCn1-9wa00xBKn7whJKYO_yJPxBX72vfqVnksIo5DtodiQd93arhbocIQnNA/exec";
+const form = document.getElementById('form');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  
+  fetch(scriptURL, {
+    method: 'POST',
+    body: JSON.stringify(Object.fromEntries(new FormData(form)))
+  })
+  .then(response => {
+    document.getElementById("msg").innerHTML="সফলভাবে জমা হয়েছে!";
+    form.reset();
+  })
+  .catch(error => alert('Error!', error.message));
+});
+</script>
+
+</body>
+</html>
